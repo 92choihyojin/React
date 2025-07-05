@@ -1,12 +1,17 @@
-import { useState } from "react";
 import "./App.css";
+import Editor from './components/Editor';
+import Header from './components/Header';
+import List from './components/List';
 
 function App() {
-  const [count, setCount] = useState(0);
+ 
 
   return (
     <>
       <h1>오늘 할 일 앱</h1>
+			<Header/>
+			<Editor/>
+			<List/>
     </>
   );
 }
