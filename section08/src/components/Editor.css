@@ -13,7 +13,7 @@
 	cursor:pointer;
 	width: 80px;
 	border: none;
-	background-color: rgb(red, green, blue);
-	color: white;
+	background-color: hsl(240, 97%, 59%);
+	color: rgb(255, 255, 255);
 	border-radius: 5px;
 }
