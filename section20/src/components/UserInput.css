@@ -1,0 +1,40 @@
+.UserInput {
+	width:100%;
+	padding: 10px;
+}
+
+.UserInput .input_wrap{
+	margin-bottom: 10px;
+}
+
+.UserInput .input_wrap label{
+	width: 30%;
+	display: inline-block;
+	padding-left: 20px;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.UserInput .input_wrap input{
+	width: 60%;
+	padding: 5px;
+	border: 1px dotted black;
+	border-radius: 5px;
+}
+
+.UserInput .button_wrap{
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.UserInput .button_wrap button{
+	padding: 5px 20px;
+	margin-left: 20px;
+	border-radius: 5px;
+	border:none;
+	background-color: bisque;
+	color: rgb(8, 8, 8);
+	cursor: pointer;
+	display: flex;
+}

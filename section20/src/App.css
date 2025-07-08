@@ -1,0 +1,13 @@
+.App{
+	width: 500px;
+	background-color: rgb(55, 70, 233);
+	color: white;
+	margin: 0 auto;
+	padding:10px;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap:10px
+}
