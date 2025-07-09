@@ -1,10 +1,19 @@
 import "./TodoItem.css";
-const TodoItem = ({ id, isDone, content, date, onupdate, onDelete }) => {
+
+const TodoItem = ({ id, isDone, content, date, onUpdate, onDelete }) => {
   const onChangeCheckBox = () => {
-    onupdate(id);
+    onUpdate(id);
   };
   const onClickBtn = () => {
     onDelete(id);
+  };
+
+  const onUpdate = (targetId) => {
+    setTodos((prev) =>
+      prev.map((item) =>
+        item.id === targetId ? { ...item, isDone: !item.isDone } : item
+      )
+    );
   };
 
   return (
