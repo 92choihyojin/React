@@ -27,7 +27,7 @@ const UserDisplay = ({ userList, onUserSelect, selectedUser}) => {
               return (
                 <tr
                   key={index}
-                  style={{ backgroundColor: "#98c" }}
+                  style={{ backgroundColor: "#6c82fc" }}
                   onClick={() => onUserSelect(data)}
                 >
                   <td>{data.name}</td>
