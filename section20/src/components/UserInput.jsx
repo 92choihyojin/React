@@ -1,17 +1,14 @@
 import "./UserInput.css";
 import { useEffect, useState } from "react";
 
-const UserInput = ({
-  userInsert,
-  selectedUser,
-  onUserUpdate,
-  onUserDelete,
-}) => {
+const UserInput = ({userInsert, selectedUser, onUserUpdate, onUserDelete }) => {
   //상태관리
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [phone, setPhone] = useState("");
+	const [currUser, setCurrUser] = useState(selectedUser);
+	const [isChanged, setChanged] = useState(false);
 
   // 선택된 유저가 바뀌면 input에 값을 채움
   useEffect(() => {
@@ -20,11 +17,14 @@ const UserInput = ({
       setAge(selectedUser.age);
       setGender(selectedUser.gender);
       setPhone(selectedUser.phone);
+			setCurrUser(selectedUser);
     } else {
       // 선택이 해제 되면 input 값 초기화
       resetForm();
     }
   }, [selectedUser]);
+
+	useEffect(()=>{}, []);
 
   // 입력값 초기화
   const resetForm = () => {
@@ -37,26 +37,59 @@ const UserInput = ({
   // 입력 이벤트처리
   const onChangeName = (e) => {
     setName(e.target.value);
+		if(currUser.name != e.target.value) {
+			setChanged(true);
+		} else {
+			setChanged(false);
+		}
   };
   const onChangeAge = (e) => {
     setAge(e.target.value);
+		if (currUser.age != e.target.value) {
+      setChanged(true);
+    } else {
+      setChanged(false);
+    }
   };
   const onChangeGender = (e) => {
     setGender(e.target.value);
+		if (currUser.gender != e.target.value) {
+      setChanged(true);
+    } else {
+      setChanged(false);
+    }
   };
   const onChangePhone = (e) => {
     setPhone(e.target.value);
+		if (currUser.phone != e.target.value) {
+      setChanged(true);
+    } else {
+      setChanged(false);
+    }
   };
 
 	// 회원등록
   const onClickRegister = () => {
-    userInsert(name, age, gender, phone);
-		resetForm();
+		if(!name||!age||!gender||!phone) {
+			alert("값을 입력해주세요.");
+			return;
+		}
+		userInsert(name, age, gender, phone);
+    resetForm();
   };
 
   // 회원 수정
   const onClickUpdate = () => {
     if (!selectedUser) return;
+		if (!name || !age || !gender || !phone) {
+      alert("변경할 값을 입력해주세요.");
+      return;
+    }
+		if (!isChanged) {
+			alert("변경된 값이 없습니다.");
+			return;
+    }
+
     onUserUpdate(name, age, gender, phone);
     resetForm();
   };
@@ -64,7 +97,7 @@ const UserInput = ({
   // 회원 삭제
   const onClickDelete = () => {
     if (!selectedUser) return;
-		onUserDelete(selectedUser.name);
+		onUserDelete(selectedUser);
     resetForm();
   };
 

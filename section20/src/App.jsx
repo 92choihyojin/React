@@ -4,9 +4,9 @@ import UserInput from "./components/UserInput";
 import { useState } from "react";
 
 const mockData = [
-	{ name: "유저1", age: 24, gender: "남자", phone: "010-2732-2241" },
-	{ name: "유저2", age: 27, gender: "여자", phone: "010-2674-0093" },
-	{ name: "유저3", age: 30, gender: "남자", phone: "010-3784-2834" },
+  { name: "유저1", age: 24, gender: "여자", phone: "010-2732-2241" },
+  { name: "유저2", age: 30, gender: "남자", phone: "010-3784-2834" },
+  { name: "유저3", age: 34, gender: "남자", phone: "010-3784-2834" },
 ];
 
 
@@ -23,34 +23,47 @@ function App() {
 
 	//수정
 	const userUpdate = (name,age,gender,phone)=>{
-		const updatedList = userList.map((user)=>
-			user.name === selectedUser.name ? {name, age, gender, phone } : user);
+		const updatedList = userList.map(
+			(user) => { 
+				return user === selectedUser ? { name, age, gender, phone } : user }
+		);
 		setUserList(updatedList);
 		setSelectedUser(null);
 	};
 	//삭제
-	const userDelete = (name) => {
-  const filteredList = userList.filter((user) => user.name !== name);
+	const userDelete = (deleteUser) => {
+  const filteredList = userList.filter((user) => user !== deleteUser);
   setUserList(filteredList);
   setSelectedUser(null);
 };
 
 	//선택된 유저 설정
 	const handleUserSelect = (user)=> {
-		setSelectedUser(user);
+		if(selectedUser) {
+			if(user==selectedUser) {
+				setSelectedUser(null);
+			} else {
+				setSelectedUser(user);
+			}
+		} else {
+			setSelectedUser(user);
+		}
 	};
+
   return (
     <>
       <div className="App">
         <UserDisplay
-					userList={userList}
-					onUserSelect={handleUserSelect}/>
+          userList={userList}
+          onUserSelect={handleUserSelect}
+          selectedUser={selectedUser}
+        />
         <UserInput
-					userInsert={userInsert}
-					selectedUser={selectedUser}
-					onUserUpdate={userUpdate}
-					onUserDelete={userDelete}
-				/>
+          userInsert={userInsert}
+          selectedUser={selectedUser}
+          onUserUpdate={userUpdate}
+          onUserDelete={userDelete}
+        />
       </div>
     </>
   );
