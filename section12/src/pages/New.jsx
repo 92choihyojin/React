@@ -1,5 +1,13 @@
+import { useSearchParams } from "react-router-dom";
+
 const New = () => {
-  return <div>New</div>;
+	const [searchParams, setSearchParams]= useSearchParams();
+
+  return(
+		<div>
+			New
+		</div>
+	);
 };
 
 export default New;

@@ -17,22 +17,22 @@ function App() {
       <div className="App">
         <Link to={"/"}>HOME</Link>
         <Link to={"/new"}>NEW</Link>
-        <Link to={"/diary"}>DIARY</Link>
-        <Link to={"/edit"}>EDIT</Link>
+        <Link to={"/diary/2"}>DIARY</Link>
+        <Link to={"/edit/3"}>EDIT</Link>
       </div>
       <hr />
       <div className="App">
         <button onClick={onClickHome}> HOME </button>
         <button onClick={() => {nav("/NEW");}}> NEW </button>
-        <button onClick={() => {nav("/DIARY");}}> DIARY </button>
-        <button onClick={() => {nav("/EDIT");}}> EDIT </button>
+        <button onClick={() => {nav("/DIARY/2");}}> DIARY </button>
+        <button onClick={() => {nav("/EDIT/3");}}> EDIT </button>
       </div>
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/diary" element={<Diary />} />
-        <Route path="/edit" element={<Edit />} />
+        <Route path="/new/*" element={<New />} />
+        <Route path="/diary/:id" element={<Diary />} />
+        <Route path="/edit/:id" element={<Edit />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
 
