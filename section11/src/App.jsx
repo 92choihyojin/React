@@ -49,6 +49,7 @@ function reducer(todos, action) {
 }
 
 //1. createContext() 생성해ㅐ서 export 시킨다.(context : 자바 (static 유사함), 공동으로 사용되는 것)
+export const TodoContext = createContext
 
 function App() {
   //상태관리(전체데이터관리)
@@ -69,20 +70,6 @@ function App() {
       },
     });
 	}, []);
-	// const onInsert = (content) => {
-		// dispatch({
-    //   type : "INSERT",
-    //   data : {
-    //     id: idRef.current++,
-    //     isDone: false,
-    //     content: content,
-    //     date: new Date().getTime(),
-    //   },
-    // });
-    //const newTodo = { id: idRef.current++, isDone: false, content: content,  date: new Date().getTime(), };
-    //[newTodos]
-  	//setTodos([newTodo, ...todos]);
-  //};
 
   // 수정하기
 	const onUpdate = useCallback((tagId)=>{
@@ -92,17 +79,6 @@ function App() {
     });
 	},[]);
 
-  //const onUpdate = (tagId) => {
-		// dispatch({
-    //   type : "UPDATE",
-    //   tagId : tagId,
-    // });
-    // setTodos(
-    //   todos.map((data) => {
-    //     return data.id === tagId ? { ...data, isDone: !data.isDone } : data;
-    // })
-    //);
-  //};
 
   //삭제하기
 	const onDelete = useCallback((tagId)=>{
@@ -112,25 +88,15 @@ function App() {
     });
 	},[])
 
-  // const onDelete = (tagId) => {
-	// 	dispatch({
-  //     type : "DELETE",
-  //     tagId : tagId,
-  //   });
-    // setTodos(
-    //   todos.filter((data) => {
-    //     return data.id !== tagId;
-    //   })
-    // );
-  //};
 
   return (
    
-      <div>
+      <div className="App">
         <Header />
-        <Exam />
-        <Editor onInsert={onInsert} />
-        <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+				<TodoContext.Provider value={{ todos, onInsert, onUpdate, onDelete }}>
+        	<Editor />
+        	<List />
+				</TodoContext.Provider>
       </div>
    
   );
