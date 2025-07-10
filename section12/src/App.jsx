@@ -9,8 +9,18 @@ import { Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
     <>
-      <div>
-        <h1>Header</h1>
+      <div className="App">
+        <Link to={"/"}>HOME</Link>
+        <Link to={"/new"}>NEW</Link>
+        <Link to={"/diary"}>DIARY</Link>
+        <Link to={"/edit"}>EDIT</Link>
+      </div>
+      <hr />
+      <div className="App">
+        <a href="/">HOME</a>
+        <a href="/new">NEW</a>
+        <a href="/diary">DIARY</a>
+        <a href="/edit">EDIT</a>
       </div>
 
       <Routes>
@@ -20,10 +30,10 @@ function App() {
         <Route path="/edit" element={<Edit />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
-			
-			<div>
-				<h1>Footer</h1>
-			</div>
+
+      <div>
+        <h1>Footer</h1>
+      </div>
     </>
   );
 }
