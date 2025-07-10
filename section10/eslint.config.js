@@ -24,7 +24,8 @@ export default defineConfig([
     },
     rules: {
       "no-unused-vars": "off",
-      "react/prop-types": "off"
+      "react/prop-types": "off",
+			"react-refresh/only-export-components": "off",
     },
   },
 ]);

@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import List from "./components/List";
 import { useState, useRef, useReducer } from "react";
 import Exam from "./components/Exam";
+import { useCallback } from "react";
 
 const mockData = [
   {
@@ -48,56 +49,82 @@ function App() {
   const idRef = useRef(3); // {curent: 3}
 
   // 삽입하기
-  const onInsert = (content) => {
+	//useCallback 해당되는 이벤트 핸들러함수를 딱 1번만 작동시킴
+	const onInsert = useCallback((content) => {
 		dispatch({
-      type : "INSERT",
-      data : {
+      type: "INSERT",
+      data: {
         id: idRef.current++,
         isDone: false,
         content: content,
         date: new Date().getTime(),
       },
     });
+	}, []);
+	// const onInsert = (content) => {
+		// dispatch({
+    //   type : "INSERT",
+    //   data : {
+    //     id: idRef.current++,
+    //     isDone: false,
+    //     content: content,
+    //     date: new Date().getTime(),
+    //   },
+    // });
     //const newTodo = { id: idRef.current++, isDone: false, content: content,  date: new Date().getTime(), };
     //[newTodos]
   	//setTodos([newTodo, ...todos]);
-  };
+  //};
 
   // 수정하기
-  const onUpdate = (tagId) => {
+	const onUpdate = useCallback((tagId)=>{
 		dispatch({
-      type : "UPDATE",
-      tagId : tagId,
+      type: "UPDATE",
+      tagId: tagId,
     });
+	},[]);
+
+  //const onUpdate = (tagId) => {
+		// dispatch({
+    //   type : "UPDATE",
+    //   tagId : tagId,
+    // });
     // setTodos(
     //   todos.map((data) => {
     //     return data.id === tagId ? { ...data, isDone: !data.isDone } : data;
     // })
     //);
-  };
+  //};
 
   //삭제하기
-  const onDelete = (tagId) => {
+	const onDelete = useCallback((tagId)=>{
 		dispatch({
       type : "DELETE",
       tagId : tagId,
     });
+	},[])
+
+  // const onDelete = (tagId) => {
+	// 	dispatch({
+  //     type : "DELETE",
+  //     tagId : tagId,
+  //   });
     // setTodos(
     //   todos.filter((data) => {
     //     return data.id !== tagId;
     //   })
     // );
-  };
+  //};
 
   return (
-    <>
+   
       <div>
         <Header />
         <Exam />
         <Editor onInsert={onInsert} />
         <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
       </div>
-    </>
+   
   );
 }
 
