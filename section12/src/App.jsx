@@ -4,9 +4,14 @@ import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import New from "./pages/New";
 import NotFound from "./pages/NotFound";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate} from "react-router-dom";
 
 function App() {
+	const nav = useNavigate();
+	const onClickHome = ()=>{
+		nav('/');
+	};
+
   return (
     <>
       <div className="App">
@@ -17,10 +22,10 @@ function App() {
       </div>
       <hr />
       <div className="App">
-        <a href="/">HOME</a>
-        <a href="/new">NEW</a>
-        <a href="/diary">DIARY</a>
-        <a href="/edit">EDIT</a>
+        <button onClick={onClickHome}> HOME </button>
+        <button onClick={() => {nav("/NEW");}}> NEW </button>
+        <button onClick={() => {nav("/DIARY");}}> DIARY </button>
+        <button onClick={() => {nav("/EDIT");}}> EDIT </button>
       </div>
 
       <Routes>
