@@ -10,6 +10,7 @@ import emotion2 from "./assets/emotion2.png";
 import emotion3 from "./assets/emotion3.png";
 import emotion4 from "./assets/emotion4.png";
 import emotion5 from "./assets/emotion5.png";
+import { getEmotionImages } from "./util/getEmotionImages";
 
 function App() {
 	const nav = useNavigate();
@@ -64,12 +65,21 @@ function App() {
       </div>
       <hr />
       <div className="App">
-				import를 활용해 이미지 첨부
+        import를 활용해 이미지 첨부
         <img src={emotion1} alt="" />
         <img src={emotion2} alt="" />
         <img src={emotion3} alt="" />
         <img src={emotion4} alt="" />
         <img src={emotion5} alt="" />
+      </div>
+      <hr />
+      <div className="App">
+        js를 활용,<br/>함수를 이용해 이미지 관리를하고 첨부
+        <img src={getEmotionImages(1)} alt="" />
+        <img src={getEmotionImages(2)} alt="" />
+        <img src={getEmotionImages(3)} alt="" />
+        <img src={getEmotionImages(4)} alt="" />
+        <img src={getEmotionImages(5)} alt="" />
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
