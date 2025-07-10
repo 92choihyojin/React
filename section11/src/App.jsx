@@ -2,7 +2,6 @@ import "./App.css";
 import Editor from "./components/Editor";
 import Header from "./components/Header";
 import List from "./components/List";
-import { useState, useRef, useReducer } from "react";
 import Exam from "./components/Exam";
 import {
   useState,
@@ -10,6 +9,7 @@ import {
   useReducer,
   useCallback,
   createContext,
+  useMemo,
 } from "react";
 
 const mockData = [
@@ -35,21 +35,28 @@ const mockData = [
 
 function reducer(todos, action) {
   switch (action.type) {
+    case "INSERT":
+      return [action.data, ...todos];
 
-    case "INSERT": return [action.data, ...todos];
-		
-    case "UPDATE": return todos.map((data)=>{
-				return data.id === action.tagId ? {...data, isDone : !data.isDone} : data });
+    case "UPDATE":
+      return todos.map((data) => {
+        return data.id === action.tagId
+          ? { ...data, isDone: !data.isDone }
+          : data;
+      });
 
-    case "DELETE": return todos.filter((data)=>{
-			return data.id !== action.tagId;
-		}) ;
-    default: return todos;
+    case "DELETE":
+      return todos.filter((data) => {
+        return data.id !== action.tagId;
+      });
+    default:
+      return todos;
   }
 }
 
 //1. createContext() 생성해ㅐ서 export 시킨다.(context : 자바 (static 유사함), 공동으로 사용되는 것)
-export const TodoContext = createContext
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function App() {
   //상태관리(전체데이터관리)
@@ -58,9 +65,9 @@ function App() {
   const idRef = useRef(3); // {curent: 3}
 
   // 삽입하기
-	//useCallback 해당되는 이벤트 핸들러함수를 딱 1번만 작동시킴
-	const onInsert = useCallback((content) => {
-		dispatch({
+  //useCallback 해당되는 이벤트 핸들러함수를 딱 1번만 작동시킴
+  const onInsert = useCallback((content) => {
+    dispatch({
       type: "INSERT",
       data: {
         id: idRef.current++,
@@ -69,36 +76,39 @@ function App() {
         date: new Date().getTime(),
       },
     });
-	}, []);
+  }, []);
 
   // 수정하기
-	const onUpdate = useCallback((tagId)=>{
-		dispatch({
+  const onUpdate = useCallback((tagId) => {
+    dispatch({
       type: "UPDATE",
       tagId: tagId,
     });
-	},[]);
-
+  }, []);
 
   //삭제하기
-	const onDelete = useCallback((tagId)=>{
-		dispatch({
-      type : "DELETE",
-      tagId : tagId,
+  const onDelete = useCallback((tagId) => {
+    dispatch({
+      type: "DELETE",
+      tagId: tagId,
     });
-	},[])
+  }, []);
 
+  // 한번만 발생하도록 처리
+  const memorizedDispatche = useMemo(() => {
+    return { onInsert, onUpdate, onDelete };
+  }, []);
 
   return (
-   
-      <div className="App">
-        <Header />
-				<TodoContext.Provider value={{ todos, onInsert, onUpdate, onDelete }}>
-        	<Editor />
-        	<List />
-				</TodoContext.Provider>
-      </div>
-   
+    <div className="App">
+      <Header />
+      <TodoStateContext.Provider value={{ todos }}>
+        <TodoDispatchContext.Provider value={memorizedDispatche}>
+          <Editor />
+          <List />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
+    </div>
   );
 }
 
