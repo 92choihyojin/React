@@ -1,10 +1,10 @@
 import "./List.css";
 import TodoItem from "./TodoItem";
-import { useState } from "react";
-import React from "react";
-import { useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
+import { TodoStateContext } from "../App";
 
-const List = ({ todos, onUpdate, onDelete }) => {
+const List = () => {
+  const { todos } = useContext(TodoStateContext);
   const [search, setSearch] = useState("");
 
   const onChaneInput = (e) => {
@@ -52,14 +52,7 @@ const List = ({ todos, onUpdate, onDelete }) => {
       />
       <div className="list_wrapper">
         {filterTodos.map((data) => {
-          return (
-            <TodoItem
-              key={data.id}
-              {...data}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
-            />
-          );
+          return <TodoItem key={data.id} {...data} />;
         })}
       </div>
     </div>
