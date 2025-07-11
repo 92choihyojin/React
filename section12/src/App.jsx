@@ -5,82 +5,47 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import NotFound from "./pages/NotFound";
 import { Routes, Route, Link, useNavigate} from "react-router-dom";
-import emotion1 from "./assets/emotion1.png";
-import emotion2 from "./assets/emotion2.png";
-import emotion3 from "./assets/emotion3.png";
-import emotion4 from "./assets/emotion4.png";
-import emotion5 from "./assets/emotion5.png";
-import { getEmotionImages } from "./util/getEmotionImages";
+import Button from './components/Button';
+import Header from "./components/Header";
 
 function App() {
-	const nav = useNavigate();
-	const onClickHome = ()=>{
-		nav('/');
-	};
 
   return (
     <>
       <div className="App">
-        <Link to={"/"}>HOME</Link>
-        <Link to={"/new"}>NEW</Link>
-        <Link to={"/diary/2"}>DIARY</Link>
-        <Link to={"/edit/3"}>EDIT</Link>
+        <Header
+          title="리액트홈페이지"
+          leftChild={<Button text="<" />}
+          rightChild={<Button text=">" />}
+        />
       </div>
-      <hr />
+
       <div className="App">
-        <button onClick={onClickHome}> HOME </button>
-        <button
+        <Button
+          text={"시작하기"}
+          type={"POSITIVE"}
           onClick={() => {
-            nav("/NEW");
+            alert("시작하기");
           }}
-        >
-          {" "}
-          NEW{" "}
-        </button>
-        <button
+        />
+        <Button
+          text={"정지하기"}
+          type={"NEGATIVE"}
           onClick={() => {
-            nav("/DIARY/2");
+            alert("정지하기");
           }}
-        >
-          {" "}
-          DIARY{" "}
-        </button>
-        <button
+        />
+        <Button
+          text={"홈으로가기"}
+          type={"HOME"}
           onClick={() => {
-            nav("/EDIT/3");
+            alert("홈으로가기");
           }}
-        >
-          {" "}
-          EDIT{" "}
-        </button>
+        />
       </div>
+
       <hr />
-      <div className="App">
-        public에서 이미지 첨부
-        <img src="emotion11.png" alt="" />
-        <img src="emotion12.png" alt="" />
-        <img src="emotion13.png" alt="" />
-        <img src="emotion14.png" alt="" />
-        <img src="emotion15.png" alt="" />
-      </div>
-      <hr />
-      <div className="App">
-        import를 활용해 이미지 첨부
-        <img src={emotion1} alt="" />
-        <img src={emotion2} alt="" />
-        <img src={emotion3} alt="" />
-        <img src={emotion4} alt="" />
-        <img src={emotion5} alt="" />
-      </div>
-      <hr />
-      <div className="App">
-        js를 활용,<br/>함수를 이용해 이미지 관리를하고 첨부
-        <img src={getEmotionImages(1)} alt="" />
-        <img src={getEmotionImages(2)} alt="" />
-        <img src={getEmotionImages(3)} alt="" />
-        <img src={getEmotionImages(4)} alt="" />
-        <img src={getEmotionImages(5)} alt="" />
-      </div>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new/*" element={<New />} />
