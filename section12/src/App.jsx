@@ -19,8 +19,14 @@ const mockData = [
   {
     id: 2,
     createdDate: new Date().getTime(),
-    emotionId: 2,
+    emotionId: 5,
     content: "2번 일기 내용",
+  },
+  {
+    id: 3,
+    createdDate: new Date().getTime(),
+    emotionId: 3,
+    content: "3번 일기 내용",
   },
 ];
 
@@ -38,7 +44,6 @@ function reducer(state, action) {
       return state;
   }
 
-  return state;
 }
 
 export const DiaryStateContext = createContext();
@@ -94,7 +99,7 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/new/*" element={<New />} />
+            <Route path="/new" element={<New />} />
             <Route path="/diary/:id" element={<Diary />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/*" element={<NotFound />} />

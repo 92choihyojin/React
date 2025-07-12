@@ -42,7 +42,7 @@ const Home = () => {
         leftChild={<Button text={"<"} />}
         rightChild={<Button text={">"} />}
       />
-      <DiaryList diaryList={monthlyData} />
+      <DiaryList data={monthlyData} />
     </div>
   );
 };
