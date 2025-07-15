@@ -1,12 +1,13 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Loading from "../page/Loading";
-import ModifyPage from "../page/todo/ModifyPage";
 
 const MainPage = lazy(() => import("../page/MainPage"));
 const AboutPage = lazy(() => import("../page/MainPage"));
 const ListPage = lazy(() => import("../page/todo/ListPage"));
 const AddPage = lazy(() => import("../page/todo/AddPage"));
+const ReadPage = lazy(() => import("../page/todo/ReadPage"));
+const ModifyPage = lazy(() => import("../page/todo/ModifyPage"));
 
 const root = createBrowserRouter([
   {
@@ -50,7 +51,7 @@ const root = createBrowserRouter([
     ),
   },
   {
-    path: "/todo/modify:tno",
+    path: "/todo/modify/:tno",
     element: (
       <Suspense fallback={<Loading />}>
         <ModifyPage />

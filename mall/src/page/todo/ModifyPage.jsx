@@ -1,14 +1,13 @@
 import { Container } from "react-bootstrap";
 import Header from "./../../include/Header";
-import ModifyComponent from "../../component/ModifyComponent";
+import { useParams } from "react-router-dom";
 
 const ModifyPage = () => {
+	  const { tno } = useParams();
   return (
     <Container>
-      <Header />
-      <div className="d-grid gap-2 mt-5">
-        <ModifyComponent />
-      </div>
+      <Header /> 
+			ModifyPage{tno}
     </Container>
   );
 };
