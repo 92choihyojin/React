@@ -54,6 +54,7 @@ const ReadPage = () => {
           Test Button List
         </button>
       </div>
+			<ReadComponent tno={tno}/>
     </Container>
   );
 };
