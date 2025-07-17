@@ -8,8 +8,10 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useCallback, useMemo } from "react";
+import ReadComponent from "../../component/todo/ReadComponent";
 
 const ReadPage = () => {
+
   const { tno } = useParams();
   const navigate = useNavigate();
   const [queryParam] = useSearchParams();
@@ -34,9 +36,9 @@ const ReadPage = () => {
     <Container>
       <Header />
       To do ReadPage {tno}
-      <div class="d-grid gap-2 col-6 mx-auto">
+      <div className="d-grid gap-2 col-6 mx-auto">
         <button
-          class="btn btn-outline-success"
+          className="btn btn-outline-success"
           type="button"
           onClick={() => {
             moveToModify(tno);
@@ -45,7 +47,7 @@ const ReadPage = () => {
           Test Button Modify
         </button>
         <button
-          class="btn btn-outline-danger"
+          className="btn btn-outline-danger"
           type="button"
           onClick={() => {
             moveToList();
