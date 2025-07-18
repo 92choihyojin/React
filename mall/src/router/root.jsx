@@ -2,8 +2,8 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Loading from "../page/Loading";
 
-const MainPage = lazy(() => import("../page/MainPage"));
 const AboutPage = lazy(() => import("../page/todo/AboutPage"));
+const MainPage = lazy(() => import("../page/MainPage"));
 const ListPage = lazy(() => import("../page/todo/ListPage"));
 const AddPage = lazy(() => import("../page/todo/AddPage"));
 const ReadPage = lazy(() => import("../page/todo/ReadPage"));

@@ -67,9 +67,9 @@ const ModifyComponent = ({ tno, moveToList }) => {
           content={`${result}`}
           callbackFn={closeModal}
         />
-      ) : null}(
+      ) : (
         <></>
-      )
+      )}
       <Form>
         <Form.Group className="mb-3">
           <Form.Label>TNO</Form.Label>

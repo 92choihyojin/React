@@ -9,9 +9,11 @@ import {
 } from "react-router-dom";
 import { useCallback, useMemo } from "react";
 import ReadComponent from "../../component/todo/ReadComponent";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const ReadPage = () => {
 
+	//const {moveToList, moveToModify} = useCustomMove();
   const { tno } = useParams();
   const navigate = useNavigate();
   const [queryParam] = useSearchParams();
@@ -35,7 +37,7 @@ const ReadPage = () => {
   return (
     <Container>
       <Header />
-      To do ReadPage {tno}
+      {/* To do ReadPage {tno}
       <div className="d-grid gap-2 col-6 mx-auto">
         <button
           className="btn btn-outline-success"
@@ -55,8 +57,10 @@ const ReadPage = () => {
         >
           Test Button List
         </button>
-      </div>
-			<ReadComponent tno={tno}/>
+      </div> */}
+			<ReadComponent tno={tno}
+			moveToList={moveToList}
+			moveToModify={moveToModify}/>
     </Container>
   );
 };
