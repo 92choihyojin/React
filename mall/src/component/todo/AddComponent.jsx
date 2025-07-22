@@ -9,6 +9,7 @@ const initState = {
   writer: "",
   dueDate: "",
 };
+
 const AddComponent = () => {
   const [todo, setTodo] = useState({ ...initState });
   const [result, setResult] = useState(null);
