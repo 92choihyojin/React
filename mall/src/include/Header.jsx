@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ModifyComponent from "../component/product/ModifyComponent";
+
 
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 function Header() {
   return (
+
     <Navbar
       collapseOnSelect
       bg="primary"
       data-bs-theme="dark"
       className="bg-body-primary"
     >
+
       <Container>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -25,6 +29,7 @@ function Header() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">예비용</NavDropdown.Item>
             </NavDropdown>
+
             <NavDropdown
               title="PRODUCTS"
               className="bg-body-primary"

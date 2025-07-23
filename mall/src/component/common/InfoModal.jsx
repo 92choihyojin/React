@@ -10,7 +10,7 @@ const InfoModal = ({ show, onHide, title, content, callbackFn }) => {
       centered
     >
       <Container>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>

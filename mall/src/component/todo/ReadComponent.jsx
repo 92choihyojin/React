@@ -3,6 +3,7 @@ import { getOne } from "../../api/TodoApi";
 import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
+
 const initState = {
   tno: 0,
   title: "",
@@ -11,7 +12,7 @@ const initState = {
   complete: false,
 };
 
-const ReadComponent = ({ tno }) => {
+const ReadComponent = ({ tno, moveToModify, moveToList  }) => {
   const [todo, setTodo] = useState(initState);
 
   useEffect(() => {
@@ -28,6 +29,26 @@ const ReadComponent = ({ tno }) => {
         {makeDiv("Title", todo.title)}
         {makeDiv("Due Date", todo.dueDate)}
         {makeDiv("Complete", todo.complete ? "Completed" : "Not Yet")}
+      </div>
+      <div className="d-flex justify-content-center gap-2 mt-5">
+        <button
+          className="btn btn-secondary"
+          type="button"
+          onClick={() => {
+             moveToModify(tno);
+          }}
+        >
+          수정하기
+        </button>
+        <button
+          className="btn btn-primary"
+          type="text"
+          onClick={() => {
+            moveToList();
+          }}
+        >
+          목록가기
+        </button>
       </div>
     </>
   );
