@@ -1,0 +1,24 @@
+.Header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0px;
+	margin-bottom: 20px;
+}
+
+.Header_Right > Button {
+	background-color: gray;
+	color:white;
+	font-size: 20px;
+}
+.Header_Left > Button {
+	background-color: gray;
+	color:white;
+	font-size: 20px;
+}
+
+.Header_Mid {
+	font-size: 40px;
+	font-weight: 700;
+}
