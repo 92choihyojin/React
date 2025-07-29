@@ -1,7 +1,12 @@
 import "./App.css";
-import { useReducer, useRef, useCallback } from "react";
+import React from "react";
+import { useReducer, useRef, useCallback, useMemo, createContext } from "react";
 import Button from "./components/Button";
 import Header from "./components/Header";
+import Editor from "./components/Editor";
+import DiaryItem from "./components/DiaryItem";
+import DiaryList from "./components/DiaryList";
+//import AuthContext, { AuthProvider } from "./contexts/AuthContext";
 
 //import { Routes, Route, Link, useNavigate } from "react-router-dom";
 
@@ -11,12 +16,14 @@ const mockData = [
     createdDate: new Date().getTime(),
     emotionId: 1,
     content: "1번 일기 내용",
+    isDone: false,
   },
   {
     id: 2,
     createdDate: new Date().getTime(),
     emotionId: 2,
     content: "2번 일기 내용",
+    isDone: true,
   },
 ];
 
@@ -29,7 +36,7 @@ function reducer(state, action) {
       return state.map((item) =>
         String(item.id) === String(action.data.id) ? action.data : item
       );
-			
+
     case "DELETE":
       return state.filter((item) => String(item.id) !== String(action.id));
     default:
@@ -37,11 +44,13 @@ function reducer(state, action) {
   }
 }
 
+export const TodoContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
   const idRef = useRef(3);
-	
+
   // 입력
   const onCreate = useCallback((content) => {
     dispatch({
@@ -51,7 +60,7 @@ function App() {
         isDone: false,
         content: content,
         date: new Date().getTime(),
-				emotionId : 3,
+        emotionId: 3,
       },
     });
   }, []);
@@ -71,6 +80,10 @@ function App() {
     });
   }, []);
 
+  const memoizeDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <div>
       <Header
@@ -79,6 +92,12 @@ function App() {
         Header_M={"Header"} //중앙
         Header_R={<Button text={"Right"} />} //오른쪽
       />
+      <TodoContext value={{ onCreate, onUpdate, onDelete }}>
+        <TodoDispatchContext.Provider value={memoizeDispatch}>
+          <Editor />
+					<DiaryList/>
+        </TodoDispatchContext.Provider>
+      </TodoContext>
       <Button
         text={"새일기 쓰기"}
         onClick={() => onCreate("새 일기 내용 입력")}

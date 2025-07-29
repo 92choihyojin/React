@@ -13,6 +13,7 @@
 .Button_POSITIVE {
 	background-color: blue;
 	color: white;
+	width: 400px;
 }
 .Button_GREEN{
 	background-color: green;
