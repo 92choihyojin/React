@@ -1,42 +1,61 @@
 import "./App.css";
-import React from "react";
-import { useReducer, useRef, useCallback, useMemo, createContext } from "react";
-import Button from "./components/Button";
-import Header from "./components/Header";
-import Editor from "./components/Editor";
-import DiaryItem from "./components/DiaryItem";
-import DiaryList from "./components/DiaryList";
-//import AuthContext, { AuthProvider } from "./contexts/AuthContext";
+import { Routes, Route, Link, } from "react-router-dom";
+import { useReducer, useRef } from "react";
+import { DiaryStateContext, DiaryDispatchContext } from "./util/contexts";
+import AuthContext from "./components/AuthContext";
+import Home from "./page/Home";
+import Diary from "./page/Diary";
+import New from "./page/New";
+import Edit from "./page/Edit";
+import Login from "./page/Login";
+import SignUp from "./page/SignUp";
+import KakaoLoginComponent from "./components/KakaoLoginComponent";
+import KakaoRedirectPage from "./page/KakaoRedirectPage";
 
-//import { Routes, Route, Link, useNavigate } from "react-router-dom";
+
+// 날짜 형식 함수 추가
+const getTodayString = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()-1).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 const mockData = [
   {
-    id: 1,
-    createdDate: new Date().getTime(),
+    id: 0,
+    isDone: true,
+    content: "월급을 받았어요",
+    createdDate: getTodayString(),
     emotionId: 1,
-    content: "1번 일기 내용",
-    isDone: false,
+  },
+  {
+    id: 1,
+    isDone: true,
+    content: "일을 하다가 직원이 다쳤어요",
+    createdDate: getTodayString(),
+    emotionId: 5,
   },
   {
     id: 2,
-    createdDate: new Date().getTime(),
-    emotionId: 2,
-    content: "2번 일기 내용",
-    isDone: true,
+    isDone: false,
+    content: "3번 업무 내용...",
+    createdDate: getTodayString(),
+    emotionId: 1,
   },
 ];
 
+// reducer 함수
 function reducer(state, action) {
   switch (action.type) {
     case "CREATE":
-      return [action.data, ...state];
-
+      return [...state, action.data];
     case "UPDATE":
-      return state.map((item) =>
-        String(item.id) === String(action.data.id) ? action.data : item
-      );
-
+      return state.map((item) => {
+				console.log(item);console.log(action.data);
+        return item.id === action.data.id ? action.data : item;
+			});
     case "DELETE":
       return state.filter((item) => String(item.id) !== String(action.id));
     default:
@@ -44,99 +63,95 @@ function reducer(state, action) {
   }
 }
 
-export const TodoContext = createContext();
-export const TodoDispatchContext = createContext();
+const initialAuthState = { user: null };
+
+//로그인 함수
+function authReducer(state, action) {
+  switch (action.type) {
+    case "LOGIN":
+      return { user: action.payload.username };
+    case "LOGOUT":
+      return { user: null };
+    default:
+      return state;
+  }
+}
+
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(3);
+  //상태관리
+  const [data, dispatchDiary] = useReducer(reducer, mockData);
+	
+	//로그인 상태
+	const [authState, dispatchAuth] = useReducer(authReducer, initialAuthState);
 
-  // 입력
-  const onCreate = useCallback((content) => {
-    dispatch({
+  const idRef = useRef(
+    mockData.sort((a, b) => {
+      return a.id < b.id ? 1 : -1;
+    })[0].id + 1
+  );
+
+  
+	
+  //const location = useLocation(); // 현재 경로 확인
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ생성, 수정, 삭제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
+  // 새로운 일기 추가
+  const onCreate = (diaryData) => {
+    console.log(diaryData);
+    dispatchDiary({
       type: "CREATE",
       data: {
         id: idRef.current++,
         isDone: false,
-        content: content,
-        date: new Date().getTime(),
-        emotionId: 3,
+        ...diaryData,
       },
     });
-  }, []);
-
-  // 수정
-  const onUpdate = useCallback((targetId) => {
-    dispatch({
+  };
+  // 기존 일기 수정
+  const onUpdate = ({id, createdDate, emotionId, content, status}) => {
+    dispatchDiary({
       type: "UPDATE",
-      targetId: targetId,
+      data: {
+        id,
+        createdDate,
+        emotionId,
+        content,
+        status,
+      },
     });
-  }, []);
-  // 삭제
-  const onDelete = useCallback((targetId) => {
-    dispatch({
+  };
+  // 기존 일기 삭제
+  const onDelete = (id) => {
+    dispatchDiary({
       type: "DELETE",
-      targetId: targetId,
+      id,
     });
-  }, []);
+  };
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ//
 
-  const memoizeDispatch = useMemo(() => {
-    return { onCreate, onUpdate, onDelete };
-  }, []);
 
   return (
-    <div>
-      <Header
-        title={"Header"}
-        Header_L={<Button text={"Left"} />} //왼쪽
-        Header_M={"Header"} //중앙
-        Header_R={<Button text={"Right"} />} //오른쪽
-      />
-      <TodoContext value={{ onCreate, onUpdate, onDelete }}>
-        <TodoDispatchContext.Provider value={memoizeDispatch}>
-          <Editor />
-					<DiaryList/>
-        </TodoDispatchContext.Provider>
-      </TodoContext>
-      <Button
-        text={"새일기 쓰기"}
-        onClick={() => onCreate("새 일기 내용 입력")}
-        type={"POSITIVE"}
-      />{" "}
-      <Button text={"수정"} onClick={() => {}} type={"GREEN"} />
-      <Button text={"삭제"} onClick={() => {}} type={"NEGATIVE"} />
-      <hr />
-      <ul>
-        {data.map((item) => (
-          <li
-            key={item.id}
-            style={{ borderBottom: "1px solid #ccc", padding: "1rem 0" }}
-          >
-            <div>📝 {item.content}</div>
-            <div>🕒 {new Date(item.createdDate).toLocaleString()}</div>
-            <div>😊 감정 ID: {item.emotionId}</div>
-
-            <div style={{ marginTop: "1rem", display: "flex" }}>
-              <Button
-                text="수정"
-                type="GREEN"
-                onClick={() =>
-                  onUpdate({
-                    ...item,
-                    content: item.content + " (수정됨)",
-                  })
-                }
-              />
-              <Button
-                text="삭제"
-                type="NEGATIVE"
-                onClick={() => onDelete(item.id)}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <AuthContext.Provider value={{ authState, dispatchAuth }}>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
+          <div className="Menu">
+            <a href="/">임시 홈 </a>
+            <KakaoLoginComponent />
+            <a href="/Login">로그아웃</a>
+          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/New" element={<New />} />
+            <Route path="/Diary" element={<Diary data={data} />} />
+            <Route path="/Edit" element={<Edit />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/Login/Kakao" element={<KakaoRedirectPage />} />
+          </Routes>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
+    </AuthContext.Provider>
   );
 }
 

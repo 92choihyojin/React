@@ -1,19 +1,82 @@
+/*공통 버튼*/
 .Button {
- background-color: aqua;
+ background-color: #6464fc;
  cursor: pointer;
  border: none;
- color: black;
+ color: rgb(255, 255, 255);
  font-size: 16px;
  font-weight: 700;
  white-space: nowrap;
  padding: 10px 15px;
  border-radius: 5px;
+ display: flex;
 }
 
-.Button_POSITIVE {
-	background-color: blue;
+/*일반 로그인 버튼*/
+.Button_Login{
+ background-color: #6464fc;
+ cursor: pointer;
+ color: rgb(255, 255, 255);
+ font-size: 16px;
+ font-weight: 700;
+ white-space: nowrap;
+ border-radius: 5px;
+}
+.Button_Login:hover{
+	 background-color: #9595ff;
+}
+
+/*카카오 로그인 버튼*/
+.Button_Kakao{
+ background-color: #ffee00;
+ cursor: pointer;
+ color: rgb(0, 0, 0);
+ font-size: 16px;
+ font-weight: 700;
+ white-space: nowrap;
+ padding: 10px 15px;
+ border-radius: 5px;
+ margin-left: 10px;
+ margin-right: 10px;
+}
+.Button_Kakao:hover{
+	 background-color: rgba(255, 245, 55, 0.726)
+}
+
+/*회원가입 버튼*/
+.Button_SignUp{
+ background-color: #6464fc;
+ cursor: pointer;
+ color: rgb(255, 255, 255);
+ font-size: 16px;
+ font-weight: 700;
+ white-space: nowrap;
+ border-radius: 5px;
+}
+.Button_SignUp:hover{
+	 background-color: #9595ff;
+}
+
+
+.Button_POSITIVE_1 {
+	background-color: #6464fc;
 	color: white;
 	width: 400px;
+	display: inline;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.Button_POSITIVE_1:hover{
+	 background-color: #285cc5;       /* 미세하게 밝은 파란색 */
+}
+.Button_POSITIVE_2 {
+	background-color: rgb(100, 100, 252);
+	color: white;
+	width: 500px;
+	display: inline;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.Button_POSITIVE_2:hover{
+	 background-color: #285cc5;       /* 미세하게 밝은 파란색 */
 }
 .Button_GREEN{
 	background-color: green;
@@ -24,7 +87,11 @@
 	background-color: rgb(255, 0, 0);
 	color: white;
 }
-.Button_HOME {
-	background-color: rgb(34, 255, 0);
-	color: rgb(0, 0, 0);
+.Button_CANCELL {
+	background-color: rgb(142, 142, 142);
+	color: rgb(255, 255, 255);
+}
+.Button_CANCELL:hover{
+	 background-color: #aab3bc;      
+	 transition: background-color 0.3s ease, transform 0.2s ease;
 }

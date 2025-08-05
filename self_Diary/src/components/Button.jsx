@@ -1,9 +1,13 @@
 import "../componentsStyle/Button.css"
 
+
 const Button = ({text, type, onClick}) => {
   return (
     <>
-      <button className={`Button Button_${type}`} onClick={onClick}>
+      <button
+				className={`Button Button_${type}`}
+				onClick={onClick}
+			>
         {text}
       </button>
     </>

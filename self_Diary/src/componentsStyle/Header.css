@@ -3,22 +3,40 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px 0px;
-	margin-bottom: 20px;
 }
 
 .Header_Right > Button {
-	background-color: gray;
-	color:white;
-	font-size: 20px;
+    background-color: gray;
+    color: white;
+    padding: 5px 20px;
+    font-size: 30px;
+		border: 0px;
+    border-radius: 30%;
+		cursor: pointer;
+		transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.Header_Right > Button:hover{
+	background-color: #c3a6a6;       
+	transform: scale(1.03);     				
 }
 .Header_Left > Button {
-	background-color: gray;
-	color:white;
-	font-size: 20px;
+	  background-color: gray;
+    color: white;
+    padding: 5px 20px;
+    font-size: 30px;
+		border: 0px;
+    border-radius: 30%;
+		cursor: pointer;
+		transition: background-color 0.3s ease, transform 0.2s ease;
 }
+.Header_Left > Button:hover{
+	 background-color: #c3a6a6;       
+  transform: scale(1.03);     		
+}
+
+
 
 .Header_Mid {
 	font-size: 40px;
-	font-weight: 700;
+	font-weight: 800;
 }

@@ -10,6 +10,28 @@
 	margin: 20px;
 }
 
+.Menu{
+	display: flex;
+	justify-content: right;
+	margin-right: 30px;
+}
+
+.mainWriter{
+	display: flex;
+	flex-direction: column;
+	margin-left: 100px;
+}
+
 .App > img{
 	width: 50px;
+}
+
+.emotion {
+	width: 30px;
+}
+.newWrite {
+	background-color: rgb(108, 108, 175);
+	color: white;
+	width: 500px;
+	height: 50px;
 }
